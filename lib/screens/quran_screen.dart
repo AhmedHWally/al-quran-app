@@ -40,7 +40,7 @@ class _QuranScreenState extends State<QuranScreen> {
           },
         ),
         title: const Text(
-          "المصحف الشريف",
+          "القرآن الكريم",
           style: TextStyle(shadows: [
             Shadow(color: Colors.black, offset: Offset(1, 1), blurRadius: 1)
           ]),

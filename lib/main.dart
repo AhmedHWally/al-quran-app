@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:azkar/screens/custom_drawer.dart';
+import 'package:azkar/services/notification_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import './screens/azkar_category_screen.dart';
@@ -59,43 +61,15 @@ class _HomePageState extends State<HomePage> {
   List<dynamic>? azkar;
   List<dynamic>? names;
   int? i;
+  late final NotificationService notificationService;
   @override
   void initState() {
     getAzkar();
     getNames();
     loadImage();
+    notificationService = NotificationService();
+    notificationService.inializeNotification();
     super.initState();
-  }
-
-  void loadImage() {
-    Timer(const Duration(seconds: 1), () => FlutterNativeSplash.remove());
-  }
-
-  Future<void> getPrefs() async {
-    final sharedpref = await SharedPreferences.getInstance();
-    if (sharedpref.getInt("key") == null) {
-      i = 0;
-    }
-    i = sharedpref.getInt("key");
-    Navigator.of(context).pushNamed(MasbhaScreen.routeName, arguments: i);
-  }
-
-  Future<void> getAzkar() async {
-    final response = await rootBundle.loadString("assets/azkar.json");
-    final data = json.decode(response);
-
-    setState(() {
-      azkar = data.map((e) => Zekr.fromJson(e)).toList();
-    });
-  }
-
-  Future<void> getNames() async {
-    final response = await rootBundle.loadString("assets/names_of_allah.json");
-    final data = json.decode(response);
-
-    setState(() {
-      names = data["data"].map((e) => e["name"]).toList();
-    });
   }
 
   @override
@@ -103,7 +77,13 @@ class _HomePageState extends State<HomePage> {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
+        extendBodyBehindAppBar: true,
         resizeToAvoidBottomInset: false,
+        drawer: CustomDrawer(notificationService: notificationService),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+        ),
         body: Container(
           width: width,
           height: height,
@@ -162,5 +142,36 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
         ));
+  }
+
+  void loadImage() {
+    Timer(const Duration(seconds: 1), () => FlutterNativeSplash.remove());
+  }
+
+  Future<void> getPrefs() async {
+    final sharedpref = await SharedPreferences.getInstance();
+    if (sharedpref.getInt("key") == null) {
+      i = 0;
+    }
+    i = sharedpref.getInt("key");
+    Navigator.of(context).pushNamed(MasbhaScreen.routeName, arguments: i);
+  }
+
+  Future<void> getAzkar() async {
+    final response = await rootBundle.loadString("assets/azkar.json");
+    final data = json.decode(response);
+
+    setState(() {
+      azkar = data.map((e) => Zekr.fromJson(e)).toList();
+    });
+  }
+
+  Future<void> getNames() async {
+    final response = await rootBundle.loadString("assets/names_of_allah.json");
+    final data = json.decode(response);
+
+    setState(() {
+      names = data["data"].map((e) => e["name"]).toList();
+    });
   }
 }

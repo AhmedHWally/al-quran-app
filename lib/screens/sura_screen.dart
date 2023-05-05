@@ -59,18 +59,23 @@ class _SuraScreenState extends State<SuraScreen> {
                     width: width,
                     child: Column(
                       children: [
-                        Image.asset(
-                          "assets/quran/page$e.png",
-                          fit: BoxFit.fill,
+                        SizedBox(
+                          height: height * 0.9,
+                          width: width,
+                          child: Image.asset(
+                            "assets/quran/page$e.png",
+                            fit: BoxFit.fill,
+                          ),
                         ),
                         Expanded(
                           child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
                                 "(${arabicNumber.convert(e)})",
                                 style: TextStyle(
-                                    fontSize: 22,
+                                    fontSize: 18,
                                     fontFamily: "",
                                     color: Colors.red[800],
                                     fontWeight: FontWeight.bold,
