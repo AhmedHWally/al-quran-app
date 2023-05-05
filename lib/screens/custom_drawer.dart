@@ -39,23 +39,46 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   icon: const Icon(Icons.notification_add),
                   onPressed: () {
                     widget.notificationService.repeatNotification();
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                      'تم تشغيل الاشعارات',
+                      style: TextStyle(shadows: [
+                        Shadow(
+                            color: Color.fromRGBO(0, 0, 0, 1),
+                            offset: Offset(1, 1),
+                            blurRadius: 1)
+                      ], fontSize: 16, color: Colors.white),
+                      textAlign: TextAlign.end,
+                    )));
                   },
                   label: const Text(
                     'تشغيل الإشعارات',
                     style: TextStyle(shadows: [
                       Shadow(
-                          color: Colors.black,
+                          color: Color.fromRGBO(0, 0, 0, 1),
                           offset: Offset(1, 1),
                           blurRadius: 1)
                     ], fontSize: 20, color: Colors.white),
                   )),
             ),
+            const SizedBox(height: 10),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
               child: ElevatedButton.icon(
                   icon: const Icon(Icons.notifications_off),
                   onPressed: () {
                     widget.notificationService.stopRepeatNotification();
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                      'تم إيقاف الاشعارات',
+                      style: TextStyle(shadows: [
+                        Shadow(
+                            color: Color.fromRGBO(0, 0, 0, 1),
+                            offset: Offset(1, 1),
+                            blurRadius: 1)
+                      ], fontSize: 16, color: Colors.white),
+                      textAlign: TextAlign.end,
+                    )));
                   },
                   label: const Text(
                     'إيقاف الإشعارات',
