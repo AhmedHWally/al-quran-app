@@ -15,6 +15,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Drawer(
+      backgroundColor: Colors.white70,
       width: width * 0.6,
       child: Column(children: [
         Container(
